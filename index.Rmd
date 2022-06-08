@@ -15,6 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(sf)
 library(dplyr)
 library(ggplot2)
+library(plotly)
 library(terra)
 library(raster)
 library(leaflet)
@@ -62,11 +63,32 @@ felinos %>%
   )
 ```
 
-
-
-
-
 # Gráficos
 
+```{r grafico-felinos, message=FALSE,echo=FALSE}
+grafico_felinos <-
+  felinos %>%
+  ggplot(aes(x = species)) +
+  geom_bar() +
+  ggtitle("Cantidad de felinos") +
+  xlab("Cantidad") +
+  ylab("Felinos")
+
+ggplotly(grafico_felinos)
+```
+
 # Mapa
+
+```{r mapa-felinos,message=FALSE,echo=FALSE}
+
+leaflet() %>%
+  addTiles() %>% # capa base de OSM
+  addCircleMarkers( # capa de registros de presencia (puntos)
+    data = felinos,
+    stroke = F,
+    radius = 4,
+    fillColor = 'blue',
+    fillOpacity = 1 # numero entre 0 y 1
+  )
+```
 
