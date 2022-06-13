@@ -24,8 +24,6 @@ library(sf)
 library(dplyr)
 library(ggplot2)
 library(plotly)
-library(terra)
-library(raster)
 library(leaflet)
 library(DT)
 ```
@@ -42,11 +40,7 @@ felinos <-
     quiet = TRUE
   )
 
-```
-
-```{r carga-paquetes3}
 st_crs(felinos)<-4326
-
 ```
 
 ```{r carga-paquetes4}
@@ -57,15 +51,6 @@ provincias <-
   ) %>%
   st_transform(4326)
 ```
-
-
-```{r carga-paquetes5}
-altitud <- 
-  rast(
-    "C:/Users/gf0604-1/mapas/felinos/altitud.tif" 
-  )
-```
-
 
 # Tabla
 
@@ -116,13 +101,13 @@ ggplotly(grafico_felinos)
 ```{r mapa-felinos,message=FALSE}
 leaflet() %>%
   addTiles() %>% # capa base de OSM
-  addPolygons(
-    data = provincias,
-    color = "black",
-    fillColor = "transparent",
-    stroke = TRUE,
-    weight = 1.0,
-  ) %>%
+  # addPolygons(
+  #   data = provincias,
+  #   color = "black",
+  #   fillColor = "transparent",
+  #   stroke = TRUE,
+  #   weight = 1.0,
+  # ) 
   addCircleMarkers( # capa de registros de presencia (puntos)
     data = felinos,
     stroke = F,
@@ -131,6 +116,3 @@ leaflet() %>%
     fillOpacity = 1 # numero entre 0 y 1
   )
 ```
-
-
-
