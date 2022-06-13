@@ -52,7 +52,7 @@ st_crs(felinos)<-4326
 
 # Tabla
 
-```{r tabla-felinos, echo=FALSE}
+```{r tabla-felinos}
 felinos %>%
   dplyr::select(species,
                 eventDate,
@@ -79,7 +79,7 @@ felinos %>%
 
 # Gráficos
 
-```{r grafico-felinos, message=FALSE,echo=FALSE}
+```{r grafico-felinos, message=FALSE}
 grafico_felinos <-
   felinos %>%
   count(species) %>%
@@ -96,7 +96,7 @@ ggplotly(grafico_felinos)
 
 # Mapa
 
-```{r mapa-felinos,message=FALSE,echo=FALSE}
+```{r mapa-felinos,message=FALSE}
 
 leaflet() %>%
   addTiles() %>% # capa base de OSM
