@@ -2,7 +2,15 @@
 title: "Datos de felinos de Costa Rica"
 author: "Emily Diaz"
 date: '2022-06-08'
-output: html_document
+output: 
+  html_document:
+    code_folding: hide
+    theme: readable
+    toc: true
+    toc_depth: 5
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
 ---
 
 ```{r setup, include=FALSE}
@@ -36,6 +44,12 @@ felinos <-
 
 ```
 
+```{r carga-paquetes3}
+st_crs(felinos)<-4326
+
+```
+
+
 # Tabla
 
 ```{r tabla-felinos, echo=FALSE}
@@ -68,11 +82,14 @@ felinos %>%
 ```{r grafico-felinos, message=FALSE,echo=FALSE}
 grafico_felinos <-
   felinos %>%
-  ggplot(aes(x = species)) +
-  geom_bar() +
+  count(species) %>%
+  ggplot(aes(x = reorder(species, n), y = n)) +
+  geom_bar(stat = "identity") +
   ggtitle("Cantidad de felinos") +
   xlab("Cantidad") +
-  ylab("Felinos")
+  ylab("Felinos") +
+  coord_flip() + #cambiar ejes
+  theme_minimal()
 
 ggplotly(grafico_felinos)
 ```
@@ -91,4 +108,6 @@ leaflet() %>%
     fillOpacity = 1 # numero entre 0 y 1
   )
 ```
+
+
 
